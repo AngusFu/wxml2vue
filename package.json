@@ -21,7 +21,18 @@
     "url": "https://github.com/AngusFu/wxml2vue/issues"
   },
   "homepage": "https://github.com/AngusFu/wxml2vue#readme",
-  "dependencies": {},
+  "dependencies": {
+    "rehype-parse": "^6.0.0",
+    "rehype-stringify": "^6.0.0",
+    "to-vfile": "^6.0.0",
+    "unified": "^8.0.0",
+    "unist-util-is": "^3.0.0",
+    "unist-util-select": "^2.0.2",
+    "unist-util-source": "^1.0.5",
+    "unist-util-visit": "^1.4.1",
+    "vfile-reporter": "^6.0.0",
+    "vue-template-compiler": "^2.6.10"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
@@ -32,7 +43,9 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-formatter-friendly": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "fs-extra": "^8.1.0",
     "husky": "^2.7.0",
+    "jest": "^24.8.0",
     "lint-staged": "^8.2.1",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
