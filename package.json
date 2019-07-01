@@ -23,7 +23,6 @@
   "homepage": "https://github.com/AngusFu/wxml2vue#readme",
   "dependencies": {
     "lodash": "^4.17.11",
-    "mustache": "^3.0.1",
     "parse-entities": "^1.2.2",
     "rehype-parse": "^6.0.0",
     "rehype-stringify": "^6.0.0",

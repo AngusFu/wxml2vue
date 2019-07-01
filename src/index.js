@@ -5,7 +5,7 @@ let template = `
   </view>
 </template>
 
-<template data="{{...staffA}}"></template>
+<template is="staffName" data="{{...staffA}}"></template>
 <template is="staffName" data="{{...staffB}}"></template>
 <template is="staffName" data="{{...staffC}}"></template>
 
@@ -28,6 +28,10 @@ let template = `
   <view>{{"hello" + name}}</view>
   <view>{{object.key}} {{array[0]}}</view>
 </view>
+<view wx:for="{{array}}" wx:for-index="idx" wx:for-item="itemName">
+  {{idx}}: {{itemName.message}}
+</view>
+
 `
 
 // 0. 注意针对 template content 的处理
@@ -41,9 +45,15 @@ let template = `
 
 const proccess = require('./proccess')
 
-proccess(template)
+proccess(template, [
+  require('./transform/mustache/text'),
+  require('./transform/mustache/template-is'),
+  require('./transform/mustache/directives'),
+  require('./transform/mustache/attrs'),
+  require('./transform/directives/wx-for')
+])
   .then(file => {
-    console.log(file)
+    console.log(file.contents)
   })
   .catch(e => {
     console.error(proccess.report(e))

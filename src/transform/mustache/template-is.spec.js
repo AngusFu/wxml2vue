@@ -18,6 +18,10 @@ it('should parse <template is="name" data="*"></template>', async () => {
     [
       `<template is="objectCombine" data="{{...obj1, ...obj2, a, c: 6}}"></template>`,
       `<template is="objectCombine" :data="{ ...obj1, ...obj2, a, c: 6 }"></template>`
+    ],
+    [
+      `<template is="staffName" data="{{...staffA}}"></template>`,
+      `<template is="staffName" :data="{ ...staffA }"></template>`
     ]
   ]
 

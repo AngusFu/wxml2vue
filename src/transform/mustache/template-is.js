@@ -2,8 +2,8 @@
  * 转换 <template is="x" data="{{ ... }}" > 中的插值
  */
 const assert = require('assert')
-const mustache = require('mustache')
 const { selectAll } = require('unist-util-select')
+const mustache = require('../../lib/mustache')
 
 module.exports = function() {
   return transformer

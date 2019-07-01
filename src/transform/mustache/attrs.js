@@ -3,7 +3,7 @@
  */
 const assert = require('assert')
 const visit = require('unist-util-visit')
-const mustache = require('mustache')
+const mustache = require('../../lib/mustache')
 
 const reMustache = /{{\s*.+\s*}}/
 const hasCurlyBraces = s => reMustache.test(s)

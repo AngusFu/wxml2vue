@@ -2,20 +2,15 @@
  * `wx:xxx` 预转换
  */
 const assert = require('assert')
-const mustache = require('mustache')
 const { defaults, omit } = require('lodash')
 const visit = require('unist-util-visit')
+const mustache = require('../../lib/mustache')
 
 const reWxDirective = /^wx:[a-z]+/
 const isWxDirective = key => reWxDirective.test(key)
 const stripPrefix = key => key.slice(3)
 
-const stringDirectives = [
-  'wx:for-item',
-  'wx:for-index',
-  // TODO treat reserved `wx:key="{{*this}}"`
-  'wx:key'
-]
+const stringDirectives = ['wx:for-item', 'wx:for-index', 'wx:key']
 
 const directiveMap = {
   'wx:if': 'v-if',
@@ -61,12 +56,12 @@ module.exports = function() {
       }
 
       if (result.length === 1) {
-        const [type, value] = result[0]
-        if (type === 'name') {
-          return { ...acc, [newKey]: value }
+        if (result[0][0] === 'name') {
+          return { ...acc, [newKey]: result[0][1] }
         }
-        if (type === 'text') {
-          return { ...acc, [newKey]: `'${value}'` }
+        /* istanbul ignore next  */
+        if (result[0][0] === 'text') {
+          return { ...acc, [newKey]: `'${result[0][1]}'` }
         }
       }
 
