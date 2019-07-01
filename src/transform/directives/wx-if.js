@@ -25,7 +25,7 @@ module.exports = function() {
       if (key in directives) {
         // TODO
         // boolean attributes are stringified like `v-else=""`
-        // maybe we can use something like prettier to solve this
+        // SEE https://github.com/syntax-tree/hastscript/issues/5
         if (key === 'v-else' && directives[key] !== '') {
           // SEE https://developers.weixin.qq.com/miniprogram/dev/reference/wxml/
           // <!--wxml-->
