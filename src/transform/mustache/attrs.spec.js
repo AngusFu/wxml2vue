@@ -42,3 +42,10 @@ it('should treat space as it is', async () => {
   const { contents } = await proccess(template, [attrBindingsPlugin])
   expect(contents).toEqual('<view :id="` ${item} `"></view>')
 })
+
+it('should treat class name carefully', async () => {
+  const template = `<view class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}"></view>`
+  const { contents } = await proccess(template, [attrBindingsPlugin])
+  const cls = `\`kind-list-item-hd \${item.open ? 'kind-list-item-hd-show' : ''}\``
+  expect(contents).toEqual(`<view :class="${cls}"></view>`)
+})

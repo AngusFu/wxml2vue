@@ -37,8 +37,9 @@ module.exports = function() {
     if (!entries.length) return
 
     entries.forEach(([key, value]) => {
-      const newKey = `:${key}`
-      const result = mustache.parse(value)
+      const isClsn = key === 'className'
+      const newKey = isClsn ? ':class' : `:${key}`
+      const result = mustache.parse(isClsn ? [].concat(value).join(' ') : value)
       properties[key] = null
 
       if (result.length === 1 && result[0][0] === 'name') {
