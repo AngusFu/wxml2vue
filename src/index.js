@@ -1,11 +1,11 @@
-const template = `
+let template = `
 <template name="staffName">
   <view>
     FirstName: {{firstName}}, LastName: {{lastName}}
   </view>
 </template>
 
-<  data="{{...staffA}}"></template>
+<template data="{{...staffA}}"></template>
 <template is="staffName" data="{{...staffB}}"></template>
 <template is="staffName" data="{{...staffC}}"></template>
 
@@ -21,39 +21,30 @@ const template = `
     <text class="user-motto">{{motto}}</text>
   </view>
 </view>
+
+<view>
+  <view> {{ message }} </view>
+  <view> {{a + b}} + {{c}} + d </view>
+  <view>{{"hello" + name}}</view>
+  <view>{{object.key}} {{array[0]}}</view>
+</view>
 `
 
-// const compiler = require('vue-template-compiler')
+// 0. 注意针对 template content 的处理
+// 1. text 中的插值: keep as it is
+// 2. property 插值:
+//    2.1 wx:for wx:if => directives
+//    2.2 normal properties
+// 3. <template is="{{name}}"></template>
+// 4. <import /> and <include/>
+// 5. Tagname 修改
 
-// var sfc = compiler.parseComponent(`<template>${template}</template>`)
+const proccess = require('./proccess')
 
-// const astRes = compiler.compile(sfc.template.content, {
-//   comments: true,
-//   preserveWhitespace: false,
-//   shouldDecodeNewlines: true
-// })
-// console.log(astRes)
-
-const vfile = require('to-vfile')
-const unified = require('unified')
-const parse = require('rehype-parse')
-const stringify = require('rehype-stringify')
-const report = require('vfile-reporter')
-
-unified()
-  .use(parse, {
-    fragment: true,
-    emitParseErrors: true,
-    duplicateAttribute: false
+proccess(template)
+  .then(file => {
+    console.log(file)
   })
-  .use(require('./transform'))
-  .use(stringify, {
-    quoteSmart: true,
-    closeSelfClosing: true,
-    omitOptionalTags: true,
-    entities: { useShortestReferences: true }
-  })
-  .process(vfile({ contents: template.trim() }), function(err, file) {
-    console.error(report(err || file))
-    // console.log(String(file))
+  .catch(e => {
+    console.error(proccess.report(e))
   })
