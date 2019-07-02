@@ -70,7 +70,7 @@ template = `<view class="index">
 //    2.2 normal properties
 // 3. <template is="{{name}}"></template>
 // 4. <import /> and <include/>
-// 5. Tagname 修改
+// 5. Tagname 修改: Adaptor
 
 const proccess = require('./proccess')
 
