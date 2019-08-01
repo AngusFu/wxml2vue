@@ -48,7 +48,7 @@ module.exports = function() {
       const result = mustache.parse(value)
       assert(
         result.every(([type]) => type === 'name' || type === 'text'),
-        'Oooooooops, unexpected mustache parsing result:' + result.toString()
+        'Oooooooops, unexpected mustache parsing result: ' + result.toString()
       )
 
       if (result.length === 0) {

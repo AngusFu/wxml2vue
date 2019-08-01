@@ -5,8 +5,7 @@ const assert = require('assert')
 const visit = require('unist-util-visit')
 const mustache = require('../../lib/mustache')
 
-const reMustache = /{{\s*.+\s*}}/
-const hasCurlyBraces = s => reMustache.test(s)
+const { hasCurlyBraces } = require('../../utils/index')
 
 module.exports = function() {
   return transformer
@@ -18,23 +17,26 @@ module.exports = function() {
   function visitor(node) {
     const { properties } = node
 
-    // template should be treated with special care
-    /* istanbul ignore next */
-    if (node.type === 'template') {
-      return
-    }
-
     /* istanbul ignore next */
     if (!properties) {
       return
     }
 
-    const entries = Object.entries(properties).filter(([, value]) =>
-      hasCurlyBraces(value)
-    )
+    let entries = null
+    // template should be treated with special care
+    if (node.tagName === 'template') {
+      const expr = properties.is
+      if (expr && hasCurlyBraces(expr)) {
+        entries = [['is', expr]]
+      }
+    } else {
+      entries = Object.entries(properties).filter(([, value]) =>
+        hasCurlyBraces(value)
+      )
+    }
 
     /* istanbul ignore next */
-    if (!entries.length) return
+    if (!entries || !entries.length) return
 
     entries.forEach(([key, value]) => {
       const isClsn = key === 'className'
@@ -50,7 +52,7 @@ module.exports = function() {
       assert(
         result.length > 1 &&
           result.every(([type]) => type === 'name' || type === 'text'),
-        'Oooooooops, unexpected mustache parsing result:' + result.toString()
+        'Oooooooops, unexpected mustache parsing result: ' + result.toString()
       )
 
       const segments = result.map(([type, value]) => {
@@ -62,7 +64,5 @@ module.exports = function() {
 
       properties[newKey] = `\`${segments.join('')}\``
     })
-
-    node.properties = { ...properties }
   }
 }

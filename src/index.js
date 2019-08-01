@@ -73,14 +73,9 @@ template = `<view class="index">
 // 5. Tagname 修改: Adaptor
 
 const proccess = require('./proccess')
+const plugins = require('./plugins')
 
-proccess(template, [
-  require('./transform/mustache/text'),
-  require('./transform/mustache/template-is'),
-  require('./transform/mustache/directives'),
-  require('./transform/mustache/attrs'),
-  require('./transform/directives/wx-for')
-])
+proccess(template, plugins)
   .then(file => {
     console.log(file.contents)
   })
