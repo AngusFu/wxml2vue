@@ -22,6 +22,9 @@
   },
   "homepage": "https://github.com/AngusFu/wxml2vue#readme",
   "dependencies": {
+    "@babel/generator": "^7.5.5",
+    "@babel/parser": "^7.5.5",
+    "@babel/traverse": "^7.5.5",
     "lodash": "^4.17.11",
     "parse-entities": "^1.2.2",
     "rehype-parse": "^6.0.0",

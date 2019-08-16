@@ -73,8 +73,19 @@ template = `<view class="index">
 // 5. Tagname 修改: Adaptor
 
 const proccess = require('./proccess')
-const plugins = require('./plugins')
+const plugins = require('./plugins')()
 
+template = `<view>
+  - {{k}}: {{x}}
+  <view wx:if="{{x}}"> = {{ k + '---' + x }}</view>
+  <block wx:for="{{[k, x]}}">
+    <view class="navigator-text">* {{item}}</view>
+    <wwww wx:for="{{[item, x]}}">
+      <view class="wwww {{ navigatorText }}">* {{item}}</view>
+    </wwww>
+  </block>
+</view>
+`
 proccess(template, plugins)
   .then(file => {
     console.log(file.contents)

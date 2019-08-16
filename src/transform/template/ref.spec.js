@@ -36,6 +36,10 @@ it('should parse <template is="name" data="*"></template>', async () => {
     [
       `<template is="staff-{{id}}" data="{{...staffA}}"></template>`,
       `<component :is="\`staff-\${id}\`" v-bind="{ ...staffA }"></component>`
+    ],
+    [
+      `<template is="{{item % 2 == 0 ? 'even' : 'odd'}}"/>`,
+      `<component :is="item % 2 == 0 ? 'even' : 'odd'"></component>`
     ]
   ]
 
