@@ -35,6 +35,11 @@ it('should parse <template is="name" data="*"></template>', async () => {
     [
       `<template is="staff-{{id}}" data="{{...staffA}}"></template>`,
       `<template :is="\`staff-\${id}\`" v-bind="{ ...staffA }"></template>`
+    ],
+    [
+      // 小程序不支持在模板内使用 template literals
+      `<template is="staff-{{id}}" data="{{...xxxxxxx, x: x[eeee+ 'c'] ? c : 22}}"></template>`,
+      `<template :is="\`staff-\${id}\`" v-bind="{ ...xxxxxxx, x: x[eeee+ 'c'] ? c : 22 }"></template>`
     ]
   ]
 
