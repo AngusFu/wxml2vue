@@ -1,6 +1,7 @@
 /**
  * 转换 <template name="x">
  */
+const visit = require('unist-util-visit')
 const { selectAll } = require('unist-util-select')
 const getPlugins = require('../../plugins')
 
@@ -28,21 +29,65 @@ module.exports = function() {
       // TODO 解决纯文本节点
       if (!rootNode.children) {
         rootNode.children = [{ type: 'element', tagName: 'div' }]
-      } else if (rootNode.children.length > 1) {
-        rootNode.children = [
-          { type: 'element', tagName: 'div', children: rootNode.children }
-        ]
+      } else {
+        const elems = rootNode.children.filter(isElement)
+        if (elems.length > 1) {
+          rootNode.children = [
+            { type: 'element', tagName: 'div', children: rootNode.children }
+          ]
+        }
       }
 
-      // 深度遍历每个节点 解决可能有绑定的地方 /^(v-)|([:@])/
-      const rootChild = rootNode.children[0]
-      const props = rootChild.properties || {}
-      const keysWithBindings = Object.keys(props).filter(k =>
-        /^(v-)|([:@])[a-zA-Z_-\d]+/.test(k)
-      )
-      keysWithBindings.forEach(key => {
-        console.log(props[key])
+      // TODO 纯文本节点也可能有 binding
+      visit(rootNode, 'element', node => {
+        console.log(getBindings(node))
       })
     })
   }
+}
+
+function getBindings(node) {
+  const props = (node || {}).properties || {}
+  return [
+    ...new Set(
+      Object.keys(props)
+        // 可能有绑定的地方 /^(v-)|([:@])/
+        .filter(k => /^(v-)|([:@])[a-zA-Z_-\d]+/.test(k))
+        .reduce(
+          (acc, key) => [...acc, ...getIndentifiersFromExpression(props[key])],
+          []
+        )
+    )
+  ]
+}
+
+function getIndentifiersFromExpression(expr) {
+  const { parse } = require('@babel/parser')
+  const traverse = require('@babel/traverse').default
+
+  // object 需要包装一层否则报错
+  if (expr.startsWith('{') && expr.endsWith('}')) {
+    expr = `(${expr})`
+  }
+
+  let globals = null
+  try {
+    const ast = parse(expr)
+    traverse(ast, {
+      enter(path) {
+        if (!globals) {
+          globals = Object.keys(path.scope.globals)
+        } else {
+          path.stop()
+        }
+      }
+    })
+  } catch (e) {
+    console.error('Invalid expression: ', expr, e)
+  }
+  return globals || []
+}
+
+function isElement(node) {
+  return node.type === 'element'
 }
