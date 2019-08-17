@@ -1,8 +1,8 @@
 {
   "name": "wxml2vue",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Transform wxml to vue sytax",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest",
     "commit": "npx git-cz",
@@ -15,14 +15,13 @@
     "type": "git",
     "url": "git+https://github.com/AngusFu/wxml2vue.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "wemlion <angusfu1126@qq.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/AngusFu/wxml2vue/issues"
   },
   "homepage": "https://github.com/AngusFu/wxml2vue#readme",
   "dependencies": {
-    "@babel/generator": "^7.5.5",
     "@babel/parser": "^7.5.5",
     "@babel/traverse": "^7.5.5",
     "lodash": "^4.17.11",
@@ -35,8 +34,7 @@
     "unist-util-select": "^2.0.2",
     "unist-util-source": "^1.0.5",
     "unist-util-visit": "^1.4.1",
-    "vfile-reporter": "^6.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "vfile-reporter": "^6.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",

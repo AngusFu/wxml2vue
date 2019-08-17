@@ -7,6 +7,8 @@ module.exports = () => [
   require('./transform/directives/wx-for'),
   require('./transform/directives/wx-if'),
 
+  require('./transform/events/bind'),
+
   require('./transform/template/ref'),
   require('./transform/template/def')
 ]

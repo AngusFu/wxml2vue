@@ -1,7 +1,8 @@
 /**
  * 转换 <template name="x">
  */
-// const visit = require('unist-util-visit')
+const { parse } = require('@babel/parser')
+const traverse = require('@babel/traverse').default
 const { selectAll } = require('unist-util-select')
 const getPlugins = require('../../plugins')
 const mustache = require('../../lib/mustache')
@@ -101,9 +102,6 @@ function setNodeScope(node, parent) {
 }
 
 function getIndentifiersFromExpr(expr) {
-  const { parse } = require('@babel/parser')
-  const traverse = require('@babel/traverse').default
-
   // object 需要包装一层否则报错
   if (expr.startsWith('{') && expr.endsWith('}')) {
     expr = `(${expr})`
