@@ -44,3 +44,9 @@ it('should work', async () => {
   })
   expect(node.type).toBe('root')
 })
+
+it('should support vfile', async () => {
+  const vfile = require('to-vfile')
+  const file = await wxml2vue(vfile({ contents: '{{ xxx }}' }))
+  expect(file.contents).toBe('{{ xxx }}')
+})

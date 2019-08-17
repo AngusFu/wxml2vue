@@ -5,7 +5,13 @@ const stringify = require('rehype-stringify')
 const report = require('vfile-reporter')
 const parseEntities = require('parse-entities')
 
-module.exports = function(template, plugins) {
+module.exports = function(file, plugins) {
+  if (!file) throw new Error('Path or file expected!')
+
+  if (typeof file === 'string') {
+    file = vfile({ contents: file })
+  }
+
   const preccessor = [
     [
       parse,
@@ -30,7 +36,7 @@ module.exports = function(template, plugins) {
     unified()
   )
 
-  return preccessor.process(vfile({ contents: template })).then(vfile => {
+  return preccessor.process(file).then(vfile => {
     vfile.contents = parseEntities(vfile.contents)
     return vfile
   })
