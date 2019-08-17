@@ -1,0 +1,46 @@
+<template name="staffName">
+  <view>FirstName: {{firstName}}, LastName: {{lastName}}</view>
+  <view>FirstName: {{firstName}}, LastName: {{lastName}}</view>
+</template>
+<template is="staffName" data="{{...staffA}}"></template>
+<template is="staffName" data="{{...staffB}}"></template>
+<template is="staffName" data="{{...staffC}}"></template>
+<view class="container">
+  <view class="userinfo" bindtap="onTap">
+    <button wx:if="{{!hasUserInfo && canIUse}}">获取头像昵称</button>
+    <block wx:else>
+      <image src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
+<view>
+  <view>{{ message }}</view>
+  <view>{{a + b}} + {{c}} + d</view>
+  <view>{{"hello" + name}}</view>
+  <view>{{object.key}} {{array[0]}}</view>
+</view>
+<view wx:for="{{array}}" wx:for-index="idx" wx:for-item="itemName">
+  {{idx}}: {{itemName.message}}
+</view>
+<view>
+  <view>00000000000</view>
+  <template is="xxxxxxxx"></template>
+  <template name="xxxxxxxx">
+    <view>111111111111111111</view>
+    <template is="xxxxxxxx"></template>
+    <template name="xxxxxxxx">
+      <view>222222222222222222</view>
+      <template is="xxxxxxxx"></template>
+      <template name="xxxxxxxx">
+        <view>333333333333333333</view>
+        <template name="xxxxxxxx">
+          <view>333333333333333333</view>
+        </template>
+      </template>
+    </template>
+  </template>
+</view>
