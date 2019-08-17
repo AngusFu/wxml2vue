@@ -12,6 +12,8 @@ module.exports = function(file, plugins) {
     file = vfile({ contents: file })
   }
 
+  vfile.contents = file.contents.trim()
+
   const preccessor = [
     [
       parse,
