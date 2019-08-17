@@ -34,7 +34,7 @@ module.exports = function() {
     templates.forEach(node => {
       const identifiers = collectIdentifiers(node.content, node)
       if (identifiers.length) {
-        node.properties['slot-scope'] = `{ ${identifiers.sort().join(', ')} }`
+        node.properties['scope'] = `{ ${identifiers.sort().join(', ')} }`
       }
     })
   }
