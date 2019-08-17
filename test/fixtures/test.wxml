@@ -1,6 +1,7 @@
 <template name="staffName">
   <view>FirstName: {{firstName}}, LastName: {{lastName}}</view>
   <view>FirstName: {{firstName}}, LastName: {{lastName}}</view>
+  <div wx:for="{{ array }}" wx:for-item="it" wx:for-index="$index">{{it}}{{$index}}</div>
 </template>
 <template is="staffName" data="{{...staffA}}"></template>
 <template is="staffName" data="{{...staffB}}"></template>
