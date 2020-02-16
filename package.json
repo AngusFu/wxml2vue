@@ -33,7 +33,7 @@
     "unified": "^8.0.0",
     "unist-util-is": "^3.0.0",
     "unist-util-select": "^2.0.2",
-    "unist-util-source": "^1.0.5",
+    "unist-util-source": "^2.0.0",
     "unist-util-visit": "^1.4.1",
     "vfile-reporter": "^6.0.0"
   },
